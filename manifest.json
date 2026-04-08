@@ -24,8 +24,8 @@
   "commands": {
     "search-selected": {
       "suggested_key": {
-        "default": "Alt/option + S",
-        "mac": "Alt/option + S"
+        "default": "Alt+S",
+        "mac": "Alt+S"
       },
       "description": "Search selected text in a new tab"
     }
