@@ -33,26 +33,19 @@ jobs:
 
       - name: Build Chrome extension (.zip)
         run: |
-          mkdir -p dist
-          zip -r dist/QueryJump-chrome-v${{ steps.version.outputs.VERSION }}.zip \
-            manifest.json \
-            background.js \
-            options.html \
-            options.css \
-            options.js \
-            icons/ \
-            -x "icons/QueryJump_Logo.png"
+          mkdir -p dist/chrome/icons
+          cp manifest.json background.js options.html options.css options.js dist/chrome/
+          cp icons/icon*.png dist/chrome/icons/
+          jq 'del(.background.scripts) | del(.browser_specific_settings)' manifest.json > dist/chrome/manifest.json
+          cd dist/chrome && zip -qr ../QueryJump-chrome-v${{ steps.version.outputs.VERSION }}.zip . && cd ../..
 
       - name: Build Firefox extension (.zip)
         run: |
-          zip -r dist/QueryJump-firefox-v${{ steps.version.outputs.VERSION }}.zip \
-            manifest.json \
-            background.js \
-            options.html \
-            options.css \
-            options.js \
-            icons/ \
-            -x "icons/QueryJump_Logo.png"
+          mkdir -p dist/firefox/icons
+          cp manifest.json background.js options.html options.css options.js dist/firefox/
+          cp icons/icon*.png dist/firefox/icons/
+          jq 'del(.background.service_worker)' manifest.json > dist/firefox/manifest.json
+          cd dist/firefox && zip -qr ../QueryJump-firefox-v${{ steps.version.outputs.VERSION }}.zip . && cd ../..
 
       - name: Generate changelog from commits
         id: changelog
