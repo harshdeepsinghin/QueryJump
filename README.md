@@ -25,11 +25,11 @@
 
 QueryJump is a **minimal, privacy-focused browser extension** that lets you search any selected text with a single hotkey. No right-click menus, no popups, no friction — just pure keyboard-driven speed.
 
-**Select → Press `Alt+S` → Done.**
+**Select → Press `Alt/option + S` → Done.**
 
 ## 🚀 Features
 
-- **⌨️ Hotkey-First** — Select text, press `Alt+S`, search opens instantly
+- **⌨️ Hotkey-First** — Select text, press `Alt/option + S`, search opens instantly
 - **🔍 Multiple Engines** — Google, DuckDuckGo, or your own custom URL
 - **🔐 Privacy-First** — Zero tracking, zero analytics, zero data collection
 - **🌐 Cross-Browser** — Chrome, Brave, Edge, and Firefox
@@ -67,7 +67,7 @@ Open the extension's **Options page** to configure:
 |---------|---------|---------|
 | Search Engine | Google, DuckDuckGo, Custom URL | Google |
 | Tab Behavior | Foreground / Background | Foreground |
-| Keyboard Shortcut | Configurable via browser settings | `Alt+S` |
+| Keyboard Shortcut | Configurable via browser settings | `Alt/option + S` |
 
 ### Changing the Shortcut
 
@@ -104,23 +104,6 @@ QueryJump uses the **absolute minimum** permissions required:
 | `storage` | Save your preferences locally |
 
 **No host permissions. No background data access. No network requests beyond your search.**
-
-## 🔄 Creating a Release
-
-Push a version tag to trigger the automated release:
-
-```bash
-# Update version in manifest.json, then:
-git add .
-git commit -m "Release v1.0.0"
-git tag v1.0.0
-git push origin main --tags
-```
-
-The GitHub Action will:
-1. Verify the manifest version matches the tag
-2. Build `.zip` packages for Chrome and Firefox
-3. Create a GitHub Release with both artifacts attached
 
 ## 🤝 Contributing
 

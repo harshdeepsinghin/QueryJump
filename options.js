@@ -131,12 +131,15 @@ function showSaved() {
 }
 
 function shakeInput(el) {
-  el.style.borderColor = '#ef4444';
-  el.style.animation = 'shake 0.4s ease';
+  el.classList.add('input-error');
   el.focus();
+  // Remove the class after animation completes
+  el.addEventListener('animationend', () => {
+    el.classList.remove('input-error');
+  }, { once: true });
+  // Also clear error state after timeout as fallback
   setTimeout(() => {
-    el.style.borderColor = '';
-    el.style.animation = '';
+    el.classList.remove('input-error');
   }, 2000);
 }
 
@@ -144,14 +147,3 @@ function showTooltip(el, msg) {
   // Simple alert fallback — keeps the extension minimal
   alert(msg);
 }
-
-// Add shake animation dynamically
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-6px); }
-    40%, 80% { transform: translateX(6px); }
-  }
-`;
-document.head.appendChild(style);
