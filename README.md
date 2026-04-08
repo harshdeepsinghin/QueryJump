@@ -33,7 +33,7 @@ QueryJump is a **minimal, privacy-focused browser extension** that lets you sear
 - **🔍 Multiple Engines** — Google, DuckDuckGo, or your own custom URL
 - **🔐 Privacy-First** — Zero tracking, zero analytics, zero data collection
 - **🌐 Cross-Browser** — Chrome, Brave, Edge, and Firefox
-- **⚡ Lightweight** — No dependencies, no build step, under 15KB total
+- **⚡ Lightweight** — No dependencies, no build step, under 25KB total
 - **🪟 Tab Control** — Open results in foreground or background tab
 
 ## 📦 Installation
