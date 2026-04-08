@@ -1,0 +1,97 @@
+name: Release Extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build & Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Verify manifest version matches tag
+        run: |
+          MANIFEST_VERSION=$(grep -o '"version": "[^"]*"' manifest.json | head -1 | cut -d'"' -f4)
+          TAG_VERSION=${{ steps.version.outputs.VERSION }}
+          if [ "$MANIFEST_VERSION" != "$TAG_VERSION" ]; then
+            echo "❌ Version mismatch: manifest.json ($MANIFEST_VERSION) ≠ tag ($TAG_VERSION)"
+            exit 1
+          fi
+          echo "✅ Version matches: $MANIFEST_VERSION"
+
+      - name: Build Chrome extension (.zip)
+        run: |
+          mkdir -p dist
+          zip -r dist/QueryJump-chrome-v${{ steps.version.outputs.VERSION }}.zip \
+            manifest.json \
+            background.js \
+            options.html \
+            options.css \
+            options.js \
+            icons/ \
+            -x "icons/QueryJump_Logo.png"
+
+      - name: Build Firefox extension (.zip)
+        run: |
+          zip -r dist/QueryJump-firefox-v${{ steps.version.outputs.VERSION }}.zip \
+            manifest.json \
+            background.js \
+            options.html \
+            options.css \
+            options.js \
+            icons/ \
+            -x "icons/QueryJump_Logo.png"
+
+      - name: Generate changelog from commits
+        id: changelog
+        run: |
+          # Get commits since last tag (or all commits if first release)
+          PREV_TAG=$(git tag --sort=-creatordate | head -2 | tail -1 2>/dev/null || echo "")
+          if [ -z "$PREV_TAG" ] || [ "$PREV_TAG" = "v${{ steps.version.outputs.VERSION }}" ]; then
+            COMMITS=$(git log --oneline --pretty=format:"- %s" | head -20)
+          else
+            COMMITS=$(git log --oneline --pretty=format:"- %s" "$PREV_TAG"..HEAD)
+          fi
+          echo "COMMITS<<EOF" >> $GITHUB_OUTPUT
+          echo "$COMMITS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: QueryJump v${{ steps.version.outputs.VERSION }}
+          body: |
+            ## QueryJump v${{ steps.version.outputs.VERSION }}
+
+            ### 📦 Downloads
+
+            | File | Platform |
+            |------|----------|
+            | `QueryJump-chrome-v${{ steps.version.outputs.VERSION }}.zip` | Chrome / Brave / Edge |
+            | `QueryJump-firefox-v${{ steps.version.outputs.VERSION }}.zip` | Firefox |
+
+            ### Installation
+            - **Chrome/Brave/Edge:** Go to `chrome://extensions` → Enable Developer Mode → Drag & drop the Chrome `.zip`
+            - **Firefox:** Go to `about:debugging` → Load Temporary Add-on → Select the Firefox `.zip`
+
+            ### Changes
+            ${{ steps.changelog.outputs.COMMITS }}
+          files: |
+            dist/QueryJump-chrome-v${{ steps.version.outputs.VERSION }}.zip
+            dist/QueryJump-firefox-v${{ steps.version.outputs.VERSION }}.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

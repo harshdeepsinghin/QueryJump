@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QueryJump Settings</title>
+  <link rel="stylesheet" href="options.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="icons/icon48.png" alt="QueryJump Logo" class="brand-logo">
+        <span class="brand-name">QueryJump</span>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="#" class="nav-item active" data-page="settings">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
+          Settings
+        </a>
+        <a href="#" class="nav-item" data-page="about">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="16" x2="12" y2="12" />
+            <line x1="12" y1="8" x2="12.01" y2="8" />
+          </svg>
+          About
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span class="version">Version 1.0.0</span>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- ==================== SETTINGS PAGE ==================== -->
+      <div id="page-settings" class="page active">
+        <header class="top-bar">
+          <h2>Settings</h2>
+        </header>
+
+        <div class="content-wrapper">
+          <!-- Search Engine -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Search Engine</h3>
+              <div class="icon-badge">🔍</div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label" for="engine">Default search engine</label>
+                <select id="engine" class="select-input">
+                  <option value="google">Google</option>
+                  <option value="duckduckgo">DuckDuckGo</option>
+                  <option value="custom">Custom URL…</option>
+                </select>
+              </div>
+
+              <div class="form-group custom-url-group" id="custom-url-group">
+                <label class="form-label" for="custom-url">Custom search URL</label>
+                <input type="url" id="custom-url" class="text-input"
+                  placeholder="https://example.com/search?q={query}" spellcheck="false" />
+                <p class="hint">Use <code>{query}</code> as the placeholder for the search term.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab Behavior -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Tab Behavior</h3>
+              <div class="icon-badge">🗂</div>
+            </div>
+            <div class="card-body">
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <span class="toggle-title">Open in background tab</span>
+                  <span class="toggle-desc">Search results open behind your current tab</span>
+                </div>
+                <button type="button" role="switch" aria-checked="false" class="toggle-switch" id="bg-toggle">
+                  <span class="toggle-knob"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Keyboard Shortcut -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Keyboard Shortcut</h3>
+              <div class="icon-badge">⌨️</div>
+            </div>
+            <div class="card-body">
+              <div class="shortcut-display">
+                <kbd>Alt</kbd> <span class="plus">+</span> <kbd>S</kbd>
+              </div>
+              <p class="hint">
+                To change the shortcut, visit your browser's extension shortcut settings:
+              </p>
+              <p class="hint shortcut-urls">
+                <strong>Chrome / Brave / Edge:</strong> <code>chrome://extensions/shortcuts</code><br>
+                <strong>Firefox:</strong> <code>about:addons</code> → ⚙️ → Manage Extension Shortcuts
+              </p>
+            </div>
+          </div>
+
+          <!-- Save Button -->
+          <div class="actions">
+            <button id="save-btn" class="save-btn">
+              <span class="save-text">Save Settings</span>
+              <span class="save-check" aria-hidden="true">✓ Saved</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== ABOUT PAGE ==================== -->
+      <div id="page-about" class="page">
+        <header class="top-bar">
+          <h2>About</h2>
+        </header>
+
+        <div class="content-wrapper">
+          <!-- Features -->
+          <div class="card features-card">
+            <div class="card-header">
+              <h3>Features</h3>
+              <div class="icon-badge">✨</div>
+            </div>
+            <div class="card-body">
+              <div class="feature-item">
+                <div class="feature-icon hotkey">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h8M6 16h.01M18 16h.01M10 16h4" />
+                  </svg>
+                </div>
+                <div class="feature-content">
+                  <h4>Hotkey-First Search</h4>
+                  <p>Select any text on a webpage and press <strong>Alt+S</strong> to instantly search it — no menus,
+                    no clicks, no friction.</p>
+                </div>
+              </div>
+
+              <div class="feature-divider"></div>
+
+              <div class="feature-item">
+                <div class="feature-icon engines">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                </div>
+                <div class="feature-content">
+                  <h4>Multiple Search Engines</h4>
+                  <p>Choose between Google, DuckDuckGo, or define your own custom search URL with <code>{query}</code>
+                    support.</p>
+                </div>
+              </div>
+
+              <div class="feature-divider"></div>
+
+              <div class="feature-item">
+                <div class="feature-icon privacy">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                </div>
+                <div class="feature-content">
+                  <h4>Privacy-First</h4>
+                  <p>Zero tracking, zero analytics, zero data collection. Your searches stay between you and your
+                    search engine.</p>
+                </div>
+              </div>
+
+              <div class="feature-divider"></div>
+
+              <div class="feature-item">
+                <div class="feature-icon cross-browser">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path
+                      d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                  </svg>
+                </div>
+                <div class="feature-content">
+                  <h4>Cross-Browser</h4>
+                  <p>Works seamlessly on Chrome, Brave, Edge, and Firefox. One extension, every Chromium &amp; Gecko
+                    browser.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Why QueryJump -->
+          <div class="card mission-card">
+            <div class="card-header">
+              <h3>Why QueryJump?</h3>
+              <div class="icon-badge">💡</div>
+            </div>
+            <div class="card-body">
+              <blockquote class="mission-quote">
+                QueryJump was built for one reason: searching selected text should be <em>instant</em>.
+                No right-click menus, no copy-paste, no switching tabs to type a query.
+                <br><br>
+                Select text. Press a key. Done. That's the entire workflow.
+              </blockquote>
+              <div class="mission-conclusion">
+                Minimal. Fast. Private. Keyboard-first.
+              </div>
+            </div>
+          </div>
+
+          <!-- Developer -->
+          <div class="card developer-card">
+            <div class="card-header">
+              <h3>Developer</h3>
+              <div class="icon-badge">👤</div>
+            </div>
+            <div class="card-body">
+              <div class="developer-info">
+                <p>Built with ❤️ by <a href="https://github.com/ektara-dev" target="_blank" rel="noopener"
+                    class="dev-link">ektara-dev</a></p>
+                <a href="https://github.com/ektara-dev/QueryJump" target="_blank" rel="noopener"
+                  class="social-btn github">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path
+                      d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  </svg>
+                  Star on GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Permissions -->
+          <div class="card permissions-card">
+            <div class="card-header">
+              <h3>Permissions Used</h3>
+              <div class="icon-badge">🔐</div>
+            </div>
+            <div class="card-body">
+              <div class="permissions-list">
+                <div class="permission-item">
+                  <span class="permission-name"><code>activeTab</code></span>
+                  <span class="permission-reason">Access the current tab only when you trigger the hotkey</span>
+                </div>
+                <div class="permission-item">
+                  <span class="permission-name"><code>scripting</code></span>
+                  <span class="permission-reason">Read your text selection from the page</span>
+                </div>
+                <div class="permission-item">
+                  <span class="permission-name"><code>storage</code></span>
+                  <span class="permission-reason">Save your preferences locally</span>
+                </div>
+              </div>
+              <p class="hint permissions-note">
+                No host permissions. No background data access. No network requests beyond your search.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+  <script src="options.js"></script>
+</body>
+
+</html>
