@@ -16,14 +16,16 @@
     "storage"
   ],
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+      "background.js"
+    ],
     "service_worker": "background.js"
   },
   "commands": {
     "search-selected": {
       "suggested_key": {
-        "default": "Alt+S",
-        "mac": "Alt+S"
+        "default": "Alt/option + S",
+        "mac": "Alt/option + S"
       },
       "description": "Search selected text in a new tab"
     }
@@ -37,7 +39,9 @@
       "id": "queryjump@harshdeepsingh.in",
       "strict_min_version": "109.0",
       "data_collection_permissions": {
-        "required": ["none"]
+        "required": [
+          "none"
+        ]
       }
     }
   }
