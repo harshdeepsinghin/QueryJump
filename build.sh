@@ -1,13 +1,20 @@
 #!/bin/bash
-# build.sh - Packages the extension for Chrome and Firefox
+set -e
 
-echo "Cleaning up..."
-rm -rf dist
-rm -f QueryJump-chrome.zip QueryJump-firefox.zip
+# Read version from manifest.json
+VERSION=$(jq -r '.version' manifest.json)
+
+echo "🔨 Building QueryJump v$VERSION..."
+echo ""
+
+# Clean previous builds
+rm -rf dist QueryJump-Chrome-v*.zip QueryJump-Firefox-v*.zip
+
+# Prepare directories
 mkdir -p dist/chrome dist/firefox
 mkdir -p dist/chrome/icons dist/firefox/icons
 
-echo "Copying common files..."
+echo "📋 Copying common files..."
 FILES="manifest.json background.js options.html options.css options.js"
 for f in $FILES; do
   cp "$f" dist/chrome/
@@ -16,22 +23,23 @@ done
 cp icons/icon*.png dist/chrome/icons/
 cp icons/icon*.png dist/firefox/icons/
 
-echo "Building Chrome manifest..."
+echo "🔧 Building Chrome manifest (MV3)..."
 jq 'del(.background.scripts) | del(.browser_specific_settings)' manifest.json > dist/chrome/manifest.json
 
-echo "Building Firefox manifest..."
+echo "🔧 Building Firefox manifest (MV2)..."
 jq 'del(.background.service_worker)' manifest.json > dist/firefox/manifest.json
 
-echo "Zipping Chrome extension..."
+echo "📦 Creating Chrome zip..."
 cd dist/chrome
-zip -qr ../../QueryJump-chrome.zip .
+zip -q -r "../../QueryJump-Chrome-v${VERSION}.zip" . -x "*.DS_Store" "__MACOSX/*"
 cd ../..
 
-echo "Zipping Firefox extension..."
+echo "📦 Creating Firefox zip..."
 cd dist/firefox
-zip -qr ../../QueryJump-firefox.zip .
+zip -q -r "../../QueryJump-Firefox-v${VERSION}.zip" . -x "*.DS_Store" "__MACOSX/*"
 cd ../..
 
+echo ""
 echo "✅ Build complete! Packages ready:"
-echo "- QueryJump-chrome.zip"
-echo "- QueryJump-firefox.zip"
+echo "   - QueryJump-Chrome-v${VERSION}.zip"
+echo "   - QueryJump-Firefox-v${VERSION}.zip"
